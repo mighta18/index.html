@@ -9,6 +9,11 @@
             font-family: 'Comic Sans MS', cursive;
             background-color: #fff0f5;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
         }
         .floating-elements {
@@ -55,8 +60,8 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 30px;
             max-width: 500px;
-            margin: 100px auto;
             transition: opacity 1s;
+            text-align: center;
         }
         .question {
             font-size: 28px;
@@ -80,13 +85,18 @@
         .envelope {
             display: none;
             margin: 30px auto;
-            width: 200px;
-            height: 150px;
+            width: 400px;
+            height: 300px;
             background: #ff4d4d;
             position: relative;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 50px;
         }
         .envelope::before, .envelope::after {
             content: '';
@@ -98,13 +108,13 @@
         .envelope::before {
             top: 0;
             left: 0;
-            border-width: 0 100px 75px 100px;
+            border-width: 0 200px 150px 200px;
             border-color: transparent transparent white transparent;
         }
         .envelope::after {
             top: 0;
             left: 0;
-            border-width: 0 100px 75px 100px;
+            border-width: 0 200px 150px 200px;
             border-color: transparent transparent #ff4d4d transparent;
             transition: transform 1s;
             transform-origin: top;
@@ -117,6 +127,7 @@
             font-size: 24px;
             color: #ff1a75;
             margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
@@ -147,9 +158,14 @@
         </div>
     </div>
 
-    <div class="envelope" id="envelope" onclick="openEnvelope()"></div>
+    <div class="envelope" id="envelope" onclick="openEnvelope()">Click to Open Envelope</div>
     <div class="letter" id="letter">
-        I love you, Luis. 💖
+        Hi baby ko, good morning!<br>
+        Di ko maka sleep.<br>
+        Mag-ingat ka sa work mo baby.<br>
+        Love na love kita palagi.<br>
+        Lagi uminom ka ng tubig ha.<br>
+        I loveeeee youuuu, Luis! 😘😘😝
     </div>
 
     <script>
