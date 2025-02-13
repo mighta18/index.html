@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Letter</title>
+    <title>Happy Valentine's</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
             background-color: #fff0f5;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             text-align: center;
+            overflow: hidden;
         }
         .container {
             background: white;
@@ -22,7 +22,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 30px;
             max-width: 500px;
-            text-align: center;
+            transition: opacity 1s;
         }
         .question {
             font-size: 28px;
@@ -37,36 +37,85 @@
             border-radius: 5px;
             margin: 5px;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .options button:hover {
+            transform: scale(1.1);
+            background: #e60000;
         }
         .envelope {
             display: none;
             margin: 30px auto;
-            width: 250px;
-            height: 200px;
+            width: 200px;
+            height: 150px;
             background: #ff4d4d;
             position: relative;
             border-radius: 5px;
             cursor: pointer;
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
         }
-        .envelope.opened {
-            display: none;
+        .envelope::before, .envelope::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
         }
-        .flower {
-            display: none;
-            font-size: 50px;
-            animation: floatUp 3s;
+        .envelope::before {
+            top: 0;
+            left: 0;
+            border-width: 0 100px 75px 100px;
+            border-color: transparent transparent white transparent;
+        }
+        .envelope::after {
+            top: 0;
+            left: 0;
+            border-width: 0 100px 75px 100px;
+            border-color: transparent transparent #ff4d4d transparent;
+            transition: transform 1s;
+            transform-origin: top;
+        }
+        .envelope.opened::after {
+            transform: rotateX(180deg);
         }
         .letter {
             display: none;
-            font-size: 28px;
+            font-size: 24px;
             color: #ff1a75;
             margin-top: 20px;
         }
+        .kiss {
+            display: none;
+            font-size: 80px;
+            color: #ff3385;
+            animation: kissAnimation 2s infinite;
+        }
+        .rose {
+            display: none;
+            font-size: 80px;
+            color: #ff66b2;
+            animation: floatUp 4s infinite;
+        }
+        @keyframes kissAnimation {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+        }
         @keyframes floatUp {
-            0% { opacity: 0; transform: translateY(50px); }
-            50% { opacity: 1; transform: translateY(-10px); }
-            100% { opacity: 0; transform: translateY(-50px); }
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-500px);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -90,14 +139,22 @@
     <div class="container" id="step3" style="display:none;">
         <div class="question">How many percent?</div>
         <div class="options">
-            <button onclick="showEnvelope()">100000</button>
-            <button onclick="showEnvelope()">10011000100</button>
+            <button onclick="nextStep('step3', 'step4')">100000</button>
+            <button onclick="nextStep('step3', 'step4')">10011000100</button>
         </div>
     </div>
 
+    <div class="container" id="step4" style="display:none;">
+        <div class="question">Ok, then kiss me!</div>
+        <button onclick="showKiss()">Kiss Me!</button>
+    </div>
+
+    <div class="kiss" id="kiss">💋</div>
+    <div class="rose" id="rose">🌹</div>
     <div class="envelope" id="envelope" onclick="openEnvelope()"></div>
-    <div class="flower" id="flower">💐</div>
-    <div class="letter" id="letter">Happy Valentine's Baby, I love you! ❤️</div>
+    <div class="letter" id="letter">
+        Happy Valentine's baby, I love you!
+    </div>
 
     <script>
         function nextStep(current, next) {
@@ -105,24 +162,27 @@
             document.getElementById(next).style.display = "block";
         }
 
-        function showEnvelope() {
-            document.getElementById("step3").style.display = "none";
-            document.getElementById("envelope").style.display = "block";
+        function showKiss() {
+            document.getElementById("step4").style.display = "none";
+            var kiss = document.getElementById("kiss");
+            kiss.style.display = "block";
+            setTimeout(() => {
+                kiss.style.display = "none";
+                document.getElementById("rose").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("envelope").style.display = "block";
+                }, 2000);
+            }, 2000);
         }
 
         function openEnvelope() {
             var envelope = document.getElementById("envelope");
-            var flower = document.getElementById("flower");
             var letter = document.getElementById("letter");
             envelope.classList.add("opened");
             setTimeout(() => {
                 envelope.style.display = "none";
-                flower.style.display = "block";
-            }, 1000);
-            setTimeout(() => {
-                flower.style.display = "none";
                 letter.style.display = "block";
-            }, 4000);
+            }, 1000);
         }
     </script>
 </body>
